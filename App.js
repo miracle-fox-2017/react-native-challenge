@@ -1,0 +1,54 @@
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import Expo from 'expo';
+import { StackNavigator } from 'react-navigation';
+import HomeScreen from './screen/HomeScreen'
+import HeroesScreen from './screen/HeroesScreen'
+import HeroScreen from './screen/HeroScreen'
+
+const Navigator = StackNavigator({
+  Home: { 
+    screen : HomeScreen,
+    navigationOptions: {
+      headerTitle: 'Home',
+    },
+  },
+  Heroes: { 
+    screen : HeroesScreen,
+    navigationOptions: {
+      headerTitle: 'Heroes',
+    },
+  },
+  Hero: { 
+    screen : HeroScreen,
+  }  
+},{
+  initialRouteName : 'Home'
+})
+
+export default class App extends React.Component {
+  render() {
+    return (
+      <Navigator />
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  h1: {
+    fontSize: 10,
+  },
+  box: {
+    width: 100,
+    height: 100,
+    borderColor: 'red',
+    borderWidth: 2,
+    borderRadius: 50,
+  }
+});

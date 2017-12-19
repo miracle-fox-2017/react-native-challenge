@@ -11,9 +11,13 @@ export default class DetailScreen extends Component {
   }
 
   render() {
+    const { navigate, state } = this.props.navigation
+    console.log("DETAIL: ", state.params.photo.previewURL)
     return (
+      
       <View>
         <Text>Detail Screen</Text>
+        <Text>{JSON.stringify(state.params.photo)}</Text>
       </View>
     )
   }

@@ -5,12 +5,6 @@ import { StackNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen'
 import DetailScreen from './DetailScreen'
 
-// static navigationOptions = {
-//   title: "Welcome",
-//   headerStyle: { marginTop: 24 },
-// }
-
-
 const AppNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
+import TitleItem from './components/TitleItem'
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -43,9 +44,18 @@ export default class HomeScreen extends Component {
     return (
       <View>
 
-        <TouchableOpacity onPress={() => navigate('Details', { photo: this.state.photos[0] })}>
-          <Text style={styles.title}>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text>
-        </TouchableOpacity>
+        
+          {/* <Text style={styles.title}>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text> */}
+        {
+          this.state.photos.map((photo, index) => {
+            return (
+              <TouchableOpacity key={index} onPress={() => navigate('Details', { photo: photo })}>
+               <TitleItem photo={photo.tags}/>
+              </TouchableOpacity>
+            )
+          })
+        }
+
       </View>
     )
   }

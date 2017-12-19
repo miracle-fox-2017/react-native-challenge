@@ -28,8 +28,6 @@ export default class App extends React.Component {
   }
 
   render() {
-    let content
-    
     return (
       <Container>
         {

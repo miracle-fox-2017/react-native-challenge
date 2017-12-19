@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Image } from 'react-native';
+import { View, Text, Button, StyleSheet, Image, ScrollView } from 'react-native';
+import { Content, Card } from 'native-base'
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser'
 
@@ -34,17 +35,17 @@ class Home extends Component {
     let content
     if(this.state.games.length) {
       content = <View>
-                  { this.state.games.map((game, i) => {
-                    return <Cards game={game} key={i}/>
-                  })}
+                      { this.state.games.map((game, i) => {
+                        return <Cards game={game} key={i} navigation={this.props.navigation}/>
+                      })}
                 </View>
     } else {
       content = <Text>Loading...</Text>
     }
     return (
-      <View>
+      <ScrollView>
         {content}
-      </View>
+      </ScrollView>
     )
   }
 }

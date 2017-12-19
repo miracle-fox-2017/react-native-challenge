@@ -22,6 +22,22 @@ class HomeScreen extends React.Component {
     })
   }
 
+  setDefault (e) {
+      this.setState({
+        id: '',
+        url: '',
+        username: '',
+        password: '',
+        createdAt: '',
+        updatedAt: '',
+        upperCase: false,
+        lowerCase: false,
+        specialCase: false,
+        minimalCase: false,
+        lengthCase: false
+      });
+  }
+
   render () {
     const {navigate} = this.props.navigation;
     return (

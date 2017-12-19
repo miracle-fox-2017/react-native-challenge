@@ -10,7 +10,6 @@ class Details extends React.Component {
 
   render () {
     const {state, goBack} = this.props.navigation;
-
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {state.params.data.title}</Text>

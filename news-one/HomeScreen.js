@@ -29,29 +29,22 @@ export default class HomeScreen extends Component {
         })
 
       }).catch(err => console.log({ message: 'Something wrong fetching photos', error: err.message }));
-
-    /* var self = this
-    fetch(apiUrl).then(function (response) {
-      return response.json();
-    }).then(function (json) {
-      self.setState({
-        photos: json.hits
-      })
-    }).catch((error) => {
-      console.error(error);
-    }); */
   }
 
   render() {
     const { navigate } = this.props.navigation
-    // var obj = typeof this.state.photos !== 'undefined' ? JSON.parse(this.state.photos) : [];
-    // console.log("RENDERED---------------------------", this.state.photos[0])
-    // console.log(this.state.photos)
+    const styles = StyleSheet.create({
+      title: {
+        fontSize: 20,
+        fontWeight: 'bold'
+      },
+    }); 
+
     return (
       <View>
 
         <TouchableOpacity onPress={() => navigate('Details', { photo: this.state.photos[0] })}>
-          <Text>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text>
+          <Text style={styles.title}>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text>
         </TouchableOpacity>
       </View>
     )

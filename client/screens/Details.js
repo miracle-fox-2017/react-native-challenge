@@ -9,15 +9,15 @@ class Details extends React.Component {
   }
 
   render () {
-    const {state} = this.props.navigation;
-    console.log(state);
+    const {state, goBack} = this.props.navigation;
+
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
         <Text>Title: {state.params.data.title}</Text>
         <Image style={{width: 100, height: 100}} source={{ uri: state.params.data.urlToImage }}></Image>
         <Text>Description: {state.params.data.description}</Text>
         <Text>Author: {state.params.data.author}</Text>
-        <Button onPress={() => goBack()} title="Back To Home"></Button>
+        <Button onPress={() => goBack()} title="Back Home"></Button>
       </View>
     )
   }

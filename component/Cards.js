@@ -7,9 +7,6 @@ const Cards = (props) => {
     img: {
       height: 200,
     },
-    header: {
-      alignSelf: 'center'
-    },
     content:{
       alignSelf:'center'
     },
@@ -31,14 +28,14 @@ const Cards = (props) => {
     <View style={styles.card}>
       <RkCard rkType='story'>
         <View rkCardHeader>
-          <Text>{props.game.name}</Text>
+          <Text style={{fontWeight: '800', fontSize: 18}}>{props.game.name}</Text>
         </View>
         <RkModalImg rkCardImg source={{uri: props.game.image.medium_url}}/>
         <View rkCardContent>
           <Text>{props.game.deck}</Text>
         </View>
         <View rkCardFooter>
-          <RkButton rkType='small' onPress={() => props.navigation.navigate('about')}>Read More</RkButton>
+          <RkButton rkType='small' onPress={() => props.navigation.navigate('detail', {id: props.game.id, name: props.game.name})}>Read More</RkButton>
         </View>
       </RkCard>
     </View>

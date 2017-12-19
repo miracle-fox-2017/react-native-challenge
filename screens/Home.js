@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button, StyleSheet, Image, ScrollView } from 'react-native';
-import { Content, Card } from 'native-base'
+import { View, Text, Button, StyleSheet, Image, ScrollView, ActivityIndicator } from 'react-native';
 import axios from 'axios';
 import fastXmlParser from 'fast-xml-parser'
 
@@ -15,7 +14,8 @@ class Home extends Component {
   }
 
   static navigationOptions = {
-    title: 'Home'
+    title: 'Home',
+    headerStyle: { marginTop: 24 }
   }
 
   componentWillMount() {
@@ -23,7 +23,6 @@ class Home extends Component {
     .then(({data}) => {
       let jsonObj = fastXmlParser.parse(data)
       let gameList = jsonObj.response.results.game
-      console.log(gameList)
       this.setState({
         games: gameList
       })
@@ -34,20 +33,32 @@ class Home extends Component {
   render() {
     let content
     if(this.state.games.length) {
-      content = <View>
-                      { this.state.games.map((game, i) => {
-                        return <Cards game={game} key={i} navigation={this.props.navigation}/>
-                      })}
-                </View>
+      content = <ScrollView>
+                  { this.state.games.map(game => {
+                    return <Cards game={game} key={game.guid} navigation={this.props.navigation}/>
+                  })}
+                </ScrollView>
     } else {
-      content = <Text>Loading...</Text>
+      content = <ActivityIndicator size="large" color="#0000ff"/>
     }
     return (
-      <ScrollView>
-        {content}
-      </ScrollView>
+      <View style={[styles.container, styles.horizontal]}>
+      {content}
+      </View>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  }
+})
 
 export default Home

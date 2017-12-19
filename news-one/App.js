@@ -5,12 +5,30 @@ import { StackNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen'
 import DetailScreen from './DetailScreen'
 
+// static navigationOptions = {
+//   title: "Welcome",
+//   headerStyle: { marginTop: 24 },
+// }
+
+
 const AppNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,
+    navigationOptions: {
+      headerTitle: "Index",
+      headerStyle: { 
+        marginTop: 24 
+      }
+    },
   },
   Details: {
     screen: DetailScreen,
+    navigationOptions: {
+      headerTitle: "Detail",
+      headerStyle: {
+        marginTop: 24
+      }
+    },
   },
 })
 
@@ -18,7 +36,7 @@ const AppNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <AppNavigator />
+      <AppNavigator/>
     );
   }
 }
@@ -30,4 +48,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
   },
+
+  navbar: {
+    marginTop: 30
+  }
 });

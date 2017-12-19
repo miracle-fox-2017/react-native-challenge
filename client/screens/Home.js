@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { StyleSheet, View, Text, Button, Image } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
 
@@ -29,7 +29,11 @@ class HomeScreen extends React.Component {
       <Text>Berikut Daftar List News : </Text>
       {this.state.news.map((d, index) => {
         return(
-          <Text key={index}>{d.title}</Text>
+          <View>
+            <Text key={index}>{ d.title }</Text>
+            <Image style={{width: 100, height: 100}} source={{ uri: d.urlToImage }}></Image>
+            <Text>{ d.description }</Text>
+          </View>
         )
       })}
         <Button title="Details" onPress={() => navigate('Details')}></Button>

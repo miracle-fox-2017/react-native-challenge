@@ -6,27 +6,11 @@ import {
   Button,
   StyleSheet
 } from 'react-native';
-import axios from 'axios';
 
 class Home extends Component {
   static navigationOptions = () => ({
     title : 'First React Native'
   });
-  constructor(){
-    super();
-    this.state = {
-      rockets : []
-    }
-  }
-  componentWillMount(){
-    axios.get('https://api.spacexdata.com/v2/rockets').then(({data}) => {
-      this.setState({
-        rockets : data
-      });
-    }).catch(err => {
-      console.log(err);
-    });
-  }
   render(){
     const {navigate} = this.props.navigation;
     return(
@@ -37,7 +21,7 @@ class Home extends Component {
         <View style={styles.button}>
           <Button
             title="Show Rockets"
-            onPress={() => navigate('List',{rockets:this.state.rockets})}/>
+            onPress={() => navigate('List')}/>
         </View>
       </View>
     )

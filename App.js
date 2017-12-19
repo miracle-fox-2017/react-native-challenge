@@ -6,6 +6,7 @@ import {StackNavigator} from 'react-navigation';
 
 import Home from './components/Home';
 import List from './components/List';
+import Detail from './components/Detail';
 
 const Navigator = StackNavigator({
   Home : {
@@ -14,6 +15,9 @@ const Navigator = StackNavigator({
   List : {
     screen : List
   },
+  Detail : {
+    screen : Detail
+  }
 });
 
 export default Navigator

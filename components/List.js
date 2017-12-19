@@ -4,34 +4,61 @@ import {
   View,
   Text,
   Image,
+  Button,
   StyleSheet
 } from 'react-native';
+import axios from 'axios';
 
 class List extends Component {
   static navigationOptions = () => ({
     title : 'List of Rockets'
   });
+  constructor(){
+    super();
+    this.state = {
+      rockets : []
+    }
+  }
+  componentWillMount(){
+    axios.get('https://api.spacexdata.com/v2/rockets').then(({data}) => {
+      this.setState({
+        rockets : data
+      });
+    }).catch(err => {
+      console.log(err);
+    });
+  }
   render(){
-    const {navigate,state} = this.props.navigation;
-    return(
-      <ScrollView>
-        {state.params.rockets.map((data,i) => {
-          return (
-            <View key={i} style={styles.box}>
-              <Image
-                source={{uri : 'https://storage.googleapis.com/library.tomybudiman.cf/first-react-native/spacex-cover.jpg'}}
-                style={styles.image}
-              />
-            <View style={styles.desc}>
-                <Text>Name : {data.name}</Text>
-                <Text style={{lineHeight : 30}}>Description : {data.description}</Text>
-                <Text style={{lineHeight : 30}}>Cost Per Launch : ${data.cost_per_launch}</Text>
+    if(this.state.rockets.length === 0){
+      return(
+        <View style={{height : '100%', flex : 1, justifyContent : 'center'}}>
+          <Image style={{alignSelf : 'center'}} source={require('../media/loading.gif')}/>
+        </View>
+      )
+    }else{
+      return(
+        <ScrollView>
+          {this.state.rockets.map((data,i) => {
+            return (
+              <View key={i} style={styles.box}>
+                <Image
+                  source={{uri : 'https://storage.googleapis.com/library.tomybudiman.cf/first-react-native/spacex-cover.jpg'}}
+                  style={styles.image}/>
+                <View style={styles.desc}>
+                  <Text style={styles.text}>Name : {data.name}</Text>
+                  <Text style={styles.text}>Cost Per Launch : ${data.cost_per_launch}</Text>
+                  <View style={styles.moreDetail}>
+                    <Button
+                      title="More Detail"
+                      onPress={() => navigate('Detail',{rocket : data})}/>
+                  </View>
+                </View>
               </View>
-            </View>
-          )
-        })}
-      </ScrollView>
-    )
+            )
+          })}
+        </ScrollView>
+      )
+    }
   }
 }
 
@@ -52,6 +79,15 @@ const styles = StyleSheet.create({
   },
   desc : {
     padding : 10
+  },
+  text : {
+    fontSize : 15,
+    lineHeight : 30
+  },
+  moreDetail : {
+    width : '40%',
+    marginTop: 10,
+    alignSelf : 'flex-end'
   }
 });
 

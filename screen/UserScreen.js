@@ -9,7 +9,12 @@ class UserScreen extends Component {
 
   render() {
     return (
-      <Text> this is user screen </Text>
+      <View>
+        <Text> this is user screen </Text>
+
+        <Button
+          title='go to user' onPress={ () => navigate('Home')} />
+      </View>
     )
   }
 }

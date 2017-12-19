@@ -4,16 +4,17 @@ import { StackNavigator } from 'react-navigation'
 import { SearchBar } from 'react-native-elements'
 
 import HomeScreen from './Timeline'
+import DetailsScreen from './Detail'
 
-const DetailsScreen = () => (
-  <View style={{
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }}>
-    <Text>Detail Restauran</Text>
-  </View>
-)
+// const DetailsScreen = () => (
+//   <View style={{
+//     flex: 1,
+//     alignItems: 'center',
+//     justifyContent: 'center'
+//   }}>
+//     <Text>Detail Restauran</Text>
+//   </View>
+// )
 
 const RootNavigator = StackNavigator({
   Home: {

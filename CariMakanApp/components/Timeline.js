@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, Button, ListView, Image } from 'react-native'
-import { SearchBar } from 'react-native-elements'
-import TimelineItem from './TimelineItem'
-import SearchBarComponent from './SearchBar'
+import { View, Text, Button, ListView, Image, ScrollView } from 'react-native'
 import axios from 'axios'
 
 export default class Timeline extends Component {
@@ -56,7 +53,7 @@ export default class Timeline extends Component {
         </View>
       )
     }
-    contents = this.state.restauranList.map(function (item, index) {
+    contents = this.state.restauranList.map((item, index) => {
       return (
         <View key={index}>
           <Text>{item.restaurant.name}</Text>
@@ -64,29 +61,22 @@ export default class Timeline extends Component {
             style={{width: 50, height: 50}}
             source={{uri: item.restaurant.thumb}}
           />
-          <Button title='Detail'/>
+          <Button
+            onPress={() => this.props.navigation.navigate('Details', {id: item.restaurant.id})}
+            title='Detail'
+           />
         </View>
       )
     })
-    // contents = () => {
-    //   return (
-    //     <ListView
-    //     dataSource={this.state.restauranList}
-    //     renderRow={(item) => {
-    //         <Text>{item}</Text>
-    //     }}
-    //   />
-    //   )
-    // }
     return (
       <View style={{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
       }}>
-        <View>
+        <ScrollView>
         {contents}
-        </View>
+        </ScrollView>
       </View>
     )
   }

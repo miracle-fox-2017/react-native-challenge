@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Text, Button, Image } from 'react-native';
+import { StyleSheet, View, Text, Button, Image, ScrollView } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
+import Details from './Details'
 
 class HomeScreen extends React.Component {
   constructor () {
@@ -14,7 +15,6 @@ class HomeScreen extends React.Component {
   componentWillMount () {
     axios.get('http://beta.newsapi.org/v2/everything?q=apple&from=2017-12-13&to=2017-12-13&sortBy=popularity&apiKey=6cbcfa7b1a324dd9907486a7bfcb51c7')
     .then(({data}) => {
-      console.log('isi NEWS', data)
       this.setState({news: data.articles})
     })
     .catch(err => {
@@ -25,29 +25,24 @@ class HomeScreen extends React.Component {
   render () {
     const {navigate} = this.props.navigation;
     return (
-      <View>
+      <ScrollView>
       <Text>Berikut Daftar List News : </Text>
       {this.state.news.map((d, index) => {
         return(
-          <View>
-            <Text key={index}>{ d.title }</Text>
+          <View key={index}>
+            <Text>{ d.title }</Text>
             <Image style={{width: 100, height: 100}} source={{ uri: d.urlToImage }}></Image>
             <Text>{ d.description }</Text>
+            <Button title="Details" onPress={() => navigate('Details', {data: d })}></Button>
           </View>
         )
       })}
-        <Button title="Details" onPress={() => navigate('Details')}></Button>
-      </View>
+      </ScrollView>
     )
   }
 }
 
-const DetailsScreen = ({goBack}) => (
-  <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-    <Text>Details Screen</Text>
-    <Button onPress={() => goBack()} title="Back To Home"></Button>
-  </View>
-);
+
 
 const RootNavigator = StackNavigator({
   Home: {
@@ -57,7 +52,7 @@ const RootNavigator = StackNavigator({
    },
   },
   Details: {
-    screen: DetailsScreen,
+    screen: Details,
     navigationOptions: {
       headerTitle: 'Details',
     },

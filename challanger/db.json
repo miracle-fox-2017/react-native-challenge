@@ -1,0 +1,16 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "Yonathan",
+      "gender": "male",
+      "dob": "110493"
+    },
+    {
+      "id": "2",
+      "name": "Permana",
+      "gender": "male",
+      "dob": "100893"
+    }
+  ]
+}

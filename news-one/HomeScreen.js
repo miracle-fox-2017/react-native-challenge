@@ -22,7 +22,7 @@ export default class HomeScreen extends Component {
 
     axios.get(apiUrl, { headers: { 'Content-Type': 'application/json' } })
       .then(({data}) => {
-        console.log(" data.hits---------------", data)
+        // console.log(" data.hits---------------", data)
 
         this.setState({
           photos: data.hits
@@ -46,11 +46,11 @@ export default class HomeScreen extends Component {
     const { navigate } = this.props.navigation
     // var obj = typeof this.state.photos !== 'undefined' ? JSON.parse(this.state.photos) : [];
     // console.log("RENDERED---------------------------", this.state.photos[0])
-    console.log(this.state.photos)
+    // console.log(this.state.photos)
     return (
       <View>
 
-        <TouchableOpacity onPress={() => navigate('Details', { photo: this.state.photos })}>
+        <TouchableOpacity onPress={() => navigate('Details', { photo: this.state.photos[0] })}>
           <Text>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text>
         </TouchableOpacity>
       </View>

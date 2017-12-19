@@ -5,8 +5,7 @@ import axios from 'axios'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: 'HomeScreen',
-    headerMode: 'none'
+    title: 'Randomize Gif'
   }
 
   constructor(props) {
@@ -14,7 +13,9 @@ class HomeScreen extends React.Component {
 
     this.state = {
       headers: "An application for change your mood",
-      mood: ''
+      mood: {
+        image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif'
+      }
     }
 
     this.getMoodFromGiphy()
@@ -22,6 +23,9 @@ class HomeScreen extends React.Component {
   }
 
   getMoodFromGiphy(){
+    this.setState({
+      mood: { image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif' }
+    })
     axios.get('https://api.giphy.com/v1/gifs/random?api_key=sKMWhStnyc6mWswAtjtKfKxS4x5sisKL&tag=&rating=G')
     .then(({ data }) => {
       this.setState({
@@ -30,16 +34,24 @@ class HomeScreen extends React.Component {
     })
     .catch(err => {
       console.log(err)
+      this.setState({
+        mood: { image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif' }
+      })
     })
   }
 
   render() {
     const { navigate } = this.props.navigation;
     return (
-      <View>
-        <View style={{ margin: 'auto' }}>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
+        <View>
           <Image
-              style={{width: 200, height: 200}}
+              style={{width: 300, height: 300}}
               source={{uri: this.state.mood.image_url}}
           />
         </View>
@@ -47,6 +59,8 @@ class HomeScreen extends React.Component {
 
         <Button
           title='re-roll' onPress={this.getMoodFromGiphy} />
+        <Button
+          title='Trending gif' onPress={ () => navigate('User')} />
       </View>
     )
   }

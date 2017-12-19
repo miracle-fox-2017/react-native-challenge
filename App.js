@@ -1,21 +1,19 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React,{Component} from 'react';
+import {
+  View
+} from 'react-native';
+import {StackNavigator} from 'react-navigation';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Tomy Djaya Budiman</Text>
-      </View>
-    );
-  }
-}
+import Home from './components/Home';
+import List from './components/List';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const Navigator = StackNavigator({
+  Home : {
+    screen : Home
+  },
+  List : {
+    screen : List
   },
 });
+
+export default Navigator

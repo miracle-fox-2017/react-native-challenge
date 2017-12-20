@@ -36,6 +36,7 @@ class List extends Component {
         </View>
       )
     }else{
+      const {navigate} = this.props.navigation;
       return(
         <ScrollView>
           {this.state.rockets.map((data,i) => {

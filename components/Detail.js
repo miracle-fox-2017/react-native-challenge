@@ -7,9 +7,19 @@ import {
 } from 'react-native';
 
 class Detail extends Component {
+  constructor(){
+    super();
+    this.state = {
+      headerTitle : 'Tomy'
+    }
+  }
+  static navigationOptions = ({navigation}) => {
+    return({
+      title : navigation.state.params.rocket.name
+    });
+  }
   render(){
     const {rocket} = this.props.navigation.state.params;
-    console.log(rocket);
     return(
       <View style={{backgroundColor : '#F1F1F1', height : '100%'}}>
         <View style={styles.wrapper}>
@@ -17,11 +27,24 @@ class Detail extends Component {
             source={{uri : 'https://storage.googleapis.com/library.tomybudiman.cf/first-react-native/spacex-cover.jpg'}}
             style={styles.imageHeader}/>
           <View style={{padding : 10}}>
+            {/* Name */}
             <Text style={styles.labelInfo}>Name :</Text>
+            <Text style={styles.contentInfo}>{rocket.name}</Text>
+            {/* Country */}
+            <Text style={styles.labelInfo}>Country :</Text>
+            <Text style={styles.contentInfo}>{rocket.country}</Text>
+            {/* Description */}
             <Text style={styles.labelInfo}>Description :</Text>
+            <Text style={styles.contentInfo}>{rocket.description}</Text>
+            {/* Width */}
             <Text style={styles.labelInfo}>Width :</Text>
+            <Text style={styles.contentInfo}>{rocket.diameter.meters} Meters</Text>
+            {/* Height */}
             <Text style={styles.labelInfo}>Height :</Text>
-            <Text style={styles.labelInfo}>Weight :</Text>
+            <Text style={styles.contentInfo}>{rocket.height.meters} Meters</Text>
+            {/* Weight */}
+            <Text style={styles.labelInfo}>Mass :</Text>
+            <Text style={styles.contentInfo}>{rocket.mass.kg} Kg</Text>
           </View>
         </View>
       </View>
@@ -44,7 +67,11 @@ const styles = StyleSheet.create({
     height : 200
   },
   labelInfo : {
+    fontSize : 18,
     fontWeight : 'bold'
+  },
+  contentInfo : {
+    fontSize : 18
   }
 });
 

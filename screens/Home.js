@@ -16,9 +16,9 @@ class Home extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {
-          this.props.games.length <= 0 ? <ActivityIndicator style={{marginTop: 150}} size="large" color="#0000ff"/>
+          this.props.games.length <= 0 ? <ActivityIndicator size="large" color="#0000ff"/>
           :
           <FlatList
             style={styles}
@@ -42,6 +42,10 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
   card: {
     borderWidth: 0.1,
     borderRadius: 2,
@@ -70,14 +74,12 @@ const styles = StyleSheet.create({
 })
 
 function mapStateToProps(state) {
-  console.log(state)
   return {
     games: state.HomeReducer.games
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  console.log('masuk props dispatch')
   return {
     getAllGames: () => dispatch(getAllGames())
   }

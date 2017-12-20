@@ -5,6 +5,9 @@ import { StackNavigator } from 'react-navigation';
 import HomeScreen from './screen/HomeScreen'
 import HeroesScreen from './screen/HeroesScreen'
 import HeroScreen from './screen/HeroScreen'
+import { Provider } from 'react-redux'
+import store from './store'
+
 
 const Navigator = StackNavigator({
   Home: { 
@@ -29,8 +32,10 @@ const Navigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <Navigator />
-    );
+      <Provider store={store}>
+        <Navigator />
+      </Provider>  
+      );
   }
 }
 

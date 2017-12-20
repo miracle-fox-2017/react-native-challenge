@@ -1,13 +1,16 @@
 import React from 'react';
-import { ScrollView, View, Text, Button, FlatList } from 'react-native';
+
+import { ScrollView, View, Text, Button, FlatList,ActivityIndicator } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
 import HeroList from '../components/HeroList'
-import Loading from '../components/Loading'
+import { fetchApiHeroes } from '../actions/heroAction'
+import { connect } from 'react-redux'
+
 
 const heroApi = `http://api.herostats.io/heroes/all`
 
-export default class HeroesScreen extends React.Component {
+class HeroesScreen extends React.Component {
 	constructor(props){
 		super()
 		this.state= {
@@ -19,9 +22,12 @@ export default class HeroesScreen extends React.Component {
 		const { navigate, state } = this.props.navigation
 		return (
 			<View>
-			{this.state.heroes.length === 0 && <Loading /> }
+			{this.props.heroes.length === 0 && <ActivityIndicator
+			   color = '#bc2b78'
+               size = "large"
+            /> }
 			<FlatList
-				data={this.state.heroes}
+				data={this.props.heroes}
 				onRefresh={() => this.updatedData()}
 				refreshing={this.state.refreshing}
 				keyExtractor= {(item,index) => item.Name}
@@ -37,26 +43,24 @@ export default class HeroesScreen extends React.Component {
 
 	updatedData() {
 		this.setState({refreshing: true})
-		alert('Reloaaaaaaaaaad')
+		this.props.fetchApiHeroes()
 		this.setState({refreshing: false})
 	}
 	componentDidMount() {
-		this.fetchApi()   
-	}
-
-	fetchApi() {
-		axios.get(heroApi)
-		.then(response => {
-			let tempHero = []
-			for (let hero in response.data){
-				tempHero.push(response.data[hero])
-			}
-			this.setState({
-				heroes: tempHero
-			})
-		})
-		.catch(err => {
-			console.log(err)
-		})      
-	}  	
+		this.props.fetchApiHeroes() 
+	} 	
 }
+
+function mapStateToProps(state) {
+	return {
+		heroes: state.heroReducer.heroes
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		fetchApiHeroes: () => dispatch(fetchApiHeroes())
+	}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(HeroesScreen)

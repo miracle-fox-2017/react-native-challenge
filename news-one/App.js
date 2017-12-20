@@ -4,25 +4,23 @@ import axios from 'axios'
 import { StackNavigator } from 'react-navigation';
 import HomeScreen from './HomeScreen'
 import DetailScreen from './DetailScreen'
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
+
+import store from './store'
 
 const AppNavigator = StackNavigator({
   Home: {
     screen: HomeScreen,
     navigationOptions: {
-      headerTitle: "Index",
+      headerTitle: "News One",
       headerStyle: { 
         marginTop: 24 
       }
     },
   },
   Details: {
-    screen: DetailScreen,
-    navigationOptions: {
-      headerTitle: "Detail",
-      headerStyle: {
-        marginTop: 24
-      }
-    },
+    screen: DetailScreen
   },
 })
 
@@ -30,7 +28,9 @@ const AppNavigator = StackNavigator({
 export default class App extends React.Component {
   render() {
     return (
-      <AppNavigator/>
+      <Provider store={store}>
+        <AppNavigator/>
+      </Provider>
     );
   }
 }

@@ -41,7 +41,7 @@ export default class ArticleRow extends Component {
 
     const article = this.props.article;
     const excerpt = article.excerpt.rendered.substring(0, 100);
-    let featuredImageUrl = article._embedded['wp:featuredmedia'][0].source_url;
+    const featuredImageUrl = article._embedded['wp:featuredmedia'][0].source_url;
 
     return (
       <View style={styles.newsItem}>

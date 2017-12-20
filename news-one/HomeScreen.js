@@ -1,42 +1,75 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button, FlatList, ActivityIndicator } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TouchableOpacity, 
+  Button, 
+  FlatList, 
+  ActivityIndicator, 
+  TextInput 
+} from 'react-native';
+
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
-import TitleItem from './components/TitleItem'
 import ArticleRow from './components/ArticleRow'
+import { connect } from 'react-redux'
+import { fetchArticles } from './actions/articleAction'
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
       newsList: [],
-      isLoading: false
+      isLoading: false,
+      isRefreshing: false,
+      page: 1,
+      query: 'Search here..'
     }
   }
 
-  onPressButton() {
-    alert("Hello")
-  }
-
   fetchNewsAPI() {
-    const url = 'http://wptavern.com/wp-json/wp/v2/posts?_embed'
     this.setState({
       isLoading: true
     })
 
-    axios.get(url)
-      .then(({data}) => {
-        this.setState({
-          newsList: data,
-          isLoading: false
-        })
-        
-      }).catch(err => console.log({ message: 'Something wrong fetching news', error: err.message }));
+    this.props.loadNews(this.state.page)
+  }
+
+  reloadNewsAPI() {
+    this.setState({
+      isRefreshing: true
+    })
+
+    this.props.loadNews(this.state.page)
+  }
+
+  refreshData() {
+    this.setState({
+      isRefreshing: true
+    })
+
+    this.reloadNewsAPI()
+  }
+
+  loadMoreData() {
+    if (this.state.newsList.length > 0) {
+      alert("Load More...")
+      console.log("loadMoreData--------------------")
+    }
   }
 
   componentWillMount() {
     this.fetchNewsAPI()
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      isLoading: nextProps.isLoading,
+      newsList: nextProps.newsList,
+      isRefreshing: nextProps.isRefreshing
+    })
   }
 
   render() {
@@ -49,6 +82,7 @@ export default class HomeScreen extends Component {
 
       container: {
         flex: 1,
+        minHeight: 100,
         justifyContent: 'center',
         alignItems: 'center'
       },
@@ -58,8 +92,11 @@ export default class HomeScreen extends Component {
       <View style={styles.container}>
         {this.state.isLoading && <ActivityIndicator size="large" color="#0000ff" />}
         <FlatList
+          onEndReached={() => this.loadMoreData()}
+          onRefresh={() => this.refreshData()}
+          refreshing={this.state.isRefreshing}
           data={this.state.newsList}
-          keyExtractor={(item, index) => item.id}
+          keyExtractor={(item, index) => 'article-'+item.id}
           renderItem={({item}) => {
             return(
               <TouchableOpacity onPress={() => navigate('Details', { article: item })}>
@@ -72,3 +109,20 @@ export default class HomeScreen extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    newsList: state.articleReducer.newsList,
+    isLoading: state.articleReducer.isLoading,
+    isRefreshing: state.articleReducer.isRefreshing
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loadNews: (page) => dispatch(fetchArticles(page))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
+// export default HomeScreen

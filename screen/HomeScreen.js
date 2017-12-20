@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Text, View, Button, Image } from 'react-native'
+import { Text, View, Button, Image, ActivityIndicator } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import axios from 'axios'
 import action from '../actions/gifAction'
@@ -15,15 +15,20 @@ class HomeScreen extends React.Component {
     super()
     this.state = {
       headers: "An application for change your mood",
-      mood: {
-        image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif',
-        fixed_width_small_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif'
-      }
+      loading: false
     }
   }
 
-  componentDidMount(){
+  reRoll(){
+    this.setState({ loading: true })
     this.props.getRandom()
+    this.setState({ loading: false })
+  }
+
+  componentDidMount(){
+    this.setState({ loading: true })
+    this.props.getRandom()
+    this.setState({ loading: false })
   }
 
   render() {
@@ -36,16 +41,24 @@ class HomeScreen extends React.Component {
         alignItems: 'center',
       }}>
         <View>
+          {this.state.loading &&
+            <ActivityIndicator
+              color = '#bc2b78'
+              size = "large"
+            />
+          }
           <Image
-              style={{width: 300, height: 300}}
-              source={{uri: this.props.gifRandom.fixed_width_small_url}}
+              style={{width: 300, height: 300, marginBottom: 10}}
+              source={{uri: this.props.gifRandom.image_url}}
           />
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row', margin: 20 }}>
           <Button
-            title='re-roll' onPress={ () => this.props.getRandom()} />
+            title = 're-roll'
+            onPress={ () => this.reRoll() } />
           <Button
-            title='Trending gif' onPress={ () => navigate('Trending')} />
+            title = 'Trending gif'
+            onPress={ () => navigate('Trending')} />
         </View>
       </View>
     )

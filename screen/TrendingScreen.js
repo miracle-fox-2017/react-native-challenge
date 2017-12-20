@@ -65,7 +65,7 @@ class TrendingScreen extends Component {
                       style={{width: 30, height: 30}}
                       source={{uri: item.images.fixed_width_small.url}}
                   />
-                  <Text>{item.slug}</Text>
+                  <Text style={{ paddingLeft: 2 }}>{item.slug}</Text>
                 </View>
               </TouchableOpacity>
             )}

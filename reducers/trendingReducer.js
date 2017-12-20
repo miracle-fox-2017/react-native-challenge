@@ -8,7 +8,6 @@ const reducer = (state = initialState, action) => {
     case 'GET_TRENDING':
       return {...state, trending: action.payload}
     case 'GET_RANDOM':
-      console.log('here', action.payload)
       return {...state, random: action.payload}
     default:
       return state

@@ -16,9 +16,11 @@ class TechcrunchDetail extends React.Component {
     const {state} = this.props.navigation
     return (
       <ScrollView>
-        <Text>{state.params.title}</Text>
-        <Image style={{width: 150, height: 100}} source={{uri:state.params.urlToImage}}/>
-        <Text>{state.params.description}</Text>
+        <View style={{backgroundColor: "#006cba"}}>
+          <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>{state.params.title}</Text>
+        </View>
+        <Image style={{width: 400, height: 300, marginBottom: 20}} source={{uri:state.params.urlToImage}}/>
+        <Text style={{marginLeft: 10}}>{state.params.description}</Text>
       </ScrollView>
     );
   }

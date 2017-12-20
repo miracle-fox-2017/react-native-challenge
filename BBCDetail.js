@@ -16,12 +16,17 @@ class BBCDetail extends React.Component {
     const {state} = this.props.navigation
     return (
       <ScrollView>
-        <Text>{state.params.title}</Text>
-        <Image style={{width: 150, height: 100}} source={{uri:state.params.urlToImage}}/>
+        <View style={{backgroundColor: "#006cba"}}>
+          <Text style={{color: 'white', fontSize: 30, fontWeight: 'bold', textAlign: 'center'}}>{state.params.title}</Text>
+        </View>
+        <Image style={{width: 400, height: 300}} source={{uri:state.params.urlToImage}}/>
         <Text>{state.params.description}</Text>
       </ScrollView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+})
 
 export default BBCDetail

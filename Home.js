@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import BBC from './BBC'
 import Techcrunch from './Techcrunch'
 import { StackNavigator } from 'react-navigation';

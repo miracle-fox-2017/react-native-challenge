@@ -1,22 +1,66 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Input, Item, List, ListItem, Body, Right, Thumbnail } from 'native-base';
+import React  from 'react';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Image, Left, View, Input, Item, List, ListItem, Body, Right, Thumbnail, Card, CardItem } from 'native-base';
 import Axios from 'axios'
-import screenDetail from './screenDetail'
-import { StackNavigator } from "react-navigation";
+import { FlatList } from "react-native";
+import Modal from 'react-native-modal'
+import {connect} from 'react-redux'
 
 import {
   TouchableOpacity
 } from 'react-native'
 
-export default class Find extends Component {
+export default class Find extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       brand: '',
-      result: []
+      result: [],
+      isModalVisible: false,
+      specification: '',
+      image: ''
     }
   }
-  
+  _showModal = (specs) => {
+    console.log('INI SPECS', specs)
+    Axios.get(`https://price-api.datayuge.com/api/v1/compare/specs?api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB&id=${specs.product_id}`)
+      .then(({data}) => {
+        console.log('SPESIFIKASI', data)
+        this.setState({
+          specification: data.data,
+          image: specs.product_image,
+          isModalVisible: true
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  _hideModal = () => this.setState({ isModalVisible: false })
+
+  _renderModalContent = () => {
+    if(this.state.specification) {
+      return (
+        <View>
+          <Button 
+              transparent 
+              textStyle={{color: '#fff'}}
+              onPress={() => this._hideModal()}
+              >
+              <Icon name="close-circle" />
+            </Button>
+            <Thumbnail square large source={{uri: this.state.image}} />
+          <FlatList
+            data={this.state.specification.main_specs}
+            renderItem={({ item }) => (
+              <Text>{item}</Text>
+            )}
+          />
+        </View>
+      )
+    }
+  };
+
   findCompare = () => {
     console.log('MASUK', this.state.brand)
     if(this.state.brand !== '') {
@@ -45,7 +89,6 @@ export default class Find extends Component {
   render() {
     return (
       <Container>
-        <Header />
         <Content>
           <Item regular>
             <Input 
@@ -83,45 +126,42 @@ product_rating:4.2
 product_sub_category:"mobile"
 product_title:"Oppo F3" */}
           <List>
-            {this.state.result.map((phone, i) => {
-              return (
-                <ListItem key={i}>
-                  <Thumbnail 
-                    square 
-                    size={80} 
-                    source={{ uri: phone.product_image }} />
-                  <Body>
-                    <Text>{phone.product_title}</Text>
-                    <Text note>Harga: Rp.{phone.product_lowest_price * 211}, rating: {phone.product_rating}</Text>
-                  </Body>
-                  <Right>
-                    <TouchableOpacity
-                      onPress={ ()=> this.props.navigation.navigate('Detail', { product_id: phone.product_id, product_image: phone.product_image }) }
-                    >
-                      <Text>Specs</Text>
-                    </TouchableOpacity>
-                  </Right>
-                </ListItem>
-              )
-            })}
+              <FlatList
+                data={this.state.result}
+                keyExtractor = { item => item.product_id}
+                renderItem = { ({item}) => (
+                  <ListItem>
+                    <Thumbnail 
+                      square 
+                      size={80} 
+                      source={{ uri: item.product_image }} />
+                    <Body>
+                      <Text>{item.product_title}</Text>
+                      <Text note>Harga: Rp.{item.product_lowest_price * 211}, rating: {item.product_rating}</Text>
+                    </Body>
+                    <Right>
+                      <TouchableOpacity
+                        onPress={ () => this._showModal({ product_id: item.product_id, product_image: item.product_image }) }
+                      >
+                        <Text>Specs</Text>
+                      </TouchableOpacity>
+                    </Right>
+                  </ListItem>
+                  )
+                } />
           </List>
+          <Modal
+            backdropOpacity={1}
+            backdropColor={'#CED0CE'}
+            animationIn={'zoomInDown'}
+            animationOut={'zoomOutUp'}
+            animationInTiming={1000}
+            animationOutTiming={1000} 
+            isVisible={this.state.isModalVisible}>
+            {this._renderModalContent()}
+        </Modal>
         </Content>
       </Container>
     );
   }
 }
-Find.navigationOptions = ({ navigation }) => ({
-  header: (
-    <Header>
-      <Left>
-        <Button transparent onPress={() => navigation.navigate("DrawerOpen")}>
-          <Icon name="menu" />
-        </Button>
-      </Left>
-      <Body>
-        <Title>Find</Title>
-      </Body>
-      <Right />
-    </Header>
-  )
-});

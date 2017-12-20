@@ -2,27 +2,30 @@ import React from 'react';
 import Expo from 'expo'
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text } from 'native-base';
 import { StackNavigator, TabNavigator, DrawerNavigator } from 'react-navigation'
-import screenHome from './src/screens/home/index.js'
-import screenFind from './src/screens/find/screenFind'
-import screenDetail from './src/screens/find/screenDetail'
+import ScreenHome from './src/screens/home/screenHome.js'
+import ScreenFind from './src/screens/find/screenFind'
+import ScreenDetail from './src/screens/find/screenDetail'
+import {Provider} from 'react-redux'
+import store from './src/store'
+
 // import Footers from './src/screens/footerMenu'
 
 const Navigator = StackNavigator(
   {
     Home: {
-      screen: screenHome,
+      screen: ScreenHome,
       navigationOptions: {
         headerTitle: 'Home',
       } 
     },
     Find: {
-      screen: screenFind,
+      screen: ScreenFind,
       navigationOptions: {
         headerTitle: 'Find',
       }
     },
     Detail: {
-      screen: screenDetail,
+      screen: ScreenDetail,
       navigationOptions: {
         headerTitle: 'Detail',
       }
@@ -49,15 +52,15 @@ export default class App extends React.Component {
   renderSelectedTab () {
     switch (this.state.selectedTab) {
       case 'Home':
-        return (<screenHome />);
+        return (<ScreenHome />);
         break;
       case 'Find':
-        return (<screenFind />);
+        return (<ScreenFind />);
         break;
       case 'About':
-        return (<screenHome />);
+        return (<ScreenHome />);
         break;
-      default:
+      default: 
     }
   }
   render() {
@@ -65,41 +68,41 @@ export default class App extends React.Component {
       return <Expo.AppLoading />
     }
     return (
-      <Container>
-        <Header/>
-          {/* <Navigator/> */}
-        <Content>
-          {this.renderSelectedTab()}
-        </Content>
-        <Footer>
-          <FooterTab>
-            <Button 
-              vertical
-              active={this.state.selectedTab==='Home'}
-              onPress={() => this.setState({selectedTab: 'Home'})}
-              >
-              <Icon name="apps" />
-              <Text>Home</Text>
-            </Button>
-            <Button 
-              vertical
-              active={this.state.selectedTab==='Find'}
-              onPress={() => this.setState({selectedTab: 'Find'})}
-              >
-              <Icon name="search" />
-              <Text>Find</Text>
-            </Button>
-            <Button 
-              vertical
-              active={this.state.selectedTab==='Home'}
-              onPress={() => this.setState({selectedTab: 'Home'})}
-              >
-              <Icon name="barcode" />
-              <Text>About</Text>
-            </Button>
-          </FooterTab>
-        </Footer>
-      </Container>
+      <Provider store={store}>
+        <Container style={{ marginTop: 25}}>
+          <Content style={{  padding: 15}}>
+            {this.renderSelectedTab()}
+          </Content>
+          <Footer>
+            <FooterTab>
+              <Button 
+                vertical
+                active={this.state.selectedTab==='Home'}
+                onPress={() => this.setState({selectedTab: 'Home'})}
+                >
+                <Icon name="apps" />
+                <Text>Home</Text>
+              </Button>
+              <Button 
+                vertical
+                active={this.state.selectedTab==='Find'}
+                onPress={() => this.setState({selectedTab: 'Find'})}
+                >
+                <Icon name="search" />
+                <Text>Find</Text>
+              </Button>
+              <Button 
+                vertical
+                active={this.state.selectedTab==='Home'}
+                onPress={() => this.setState({selectedTab: 'Home'})}
+                >
+                <Icon name="barcode" />
+                <Text>About</Text>
+              </Button>
+            </FooterTab>
+          </Footer>
+        </Container>
+      </Provider>
     );
   }
 }

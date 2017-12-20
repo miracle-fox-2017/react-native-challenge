@@ -290,6 +290,10 @@ array-reduce@~0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/array-reduce/-/array-reduce-0.0.0.tgz#173899d3ffd1c7d9383e4479525dbe278cab5f2b"
 
+array-slice@^0.2.3:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/array-slice/-/array-slice-0.2.3.tgz#dd3cfb80ed7973a75117cdac69b0b99ec86186f5"
+
 array-union@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/array-union/-/array-union-1.0.2.tgz#9a34410e4f4e3da23dea375be5be70f24778ec39"
@@ -1570,6 +1574,10 @@ console-control-strings@^1.0.0, console-control-strings@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
 
+console@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/console/-/console-0.5.2.tgz#ab20ccf5e16c92f9253816eef3b7ae78f7ad1f43"
+
 constant-case@^1.1.0:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/constant-case/-/constant-case-1.1.2.tgz#8ec2ca5ba343e00aa38dbf4e200fd5ac907efd63"
@@ -1766,6 +1774,10 @@ dedent@^0.6.0:
 deep-diff@0.3.4:
   version "0.3.4"
   resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.4.tgz#aac5c39952236abe5f037a2349060ba01b00ae48"
+
+deep-diff@^0.3.5:
+  version "0.3.8"
+  resolved "https://registry.yarnpkg.com/deep-diff/-/deep-diff-0.3.8.tgz#c01de63efb0eec9798801d40c7e0dae25b582c84"
 
 deep-extend@~0.4.0:
   version "0.4.2"
@@ -4659,6 +4671,13 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@15.5.10:
+  version "15.5.10"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+
 prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.0:
   version "15.6.0"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
@@ -4807,6 +4826,19 @@ react-devtools-core@^2.5.0:
     shell-quote "^1.6.1"
     ws "^2.0.3"
 
+react-logger@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-logger/-/react-logger-1.1.0.tgz#a400bb9f3d403bc87c1230b865691540a7fbde4a"
+  dependencies:
+    array-slice "^0.2.3"
+    console "^0.5.2"
+
+react-native-animatable@^1.2.3:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.2.4.tgz#b5fb7657e8f6edadbc26697057a327fb920b3039"
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-branch@2.0.0-beta.3:
   version "2.0.0-beta.3"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.0.0-beta.3.tgz#2167af86bbc9f964bd45bd5f37684e5b54965e32"
@@ -4827,9 +4859,9 @@ react-native-drawer-layout@1.3.2:
   dependencies:
     react-native-dismiss-keyboard "1.0.0"
 
-"react-native-drawer@git+https://github.com/GeekyAnts/react-native-drawer.git":
+"react-native-drawer@https://github.com/GeekyAnts/react-native-drawer":
   version "2.3.0"
-  resolved "git+https://github.com/GeekyAnts/react-native-drawer.git#8d9078516d177c9cb02d2579a6860706d2370d25"
+  resolved "https://github.com/GeekyAnts/react-native-drawer#8d9078516d177c9cb02d2579a6860706d2370d25"
   dependencies:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
@@ -4846,9 +4878,9 @@ react-native-gesture-handler@1.0.0-alpha.30:
   dependencies:
     prop-types "^15.5.10"
 
-"react-native-keyboard-aware-scroll-view@git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git":
+"react-native-keyboard-aware-scroll-view@https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view":
   version "0.2.9"
-  resolved "git+https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view.git#f4805f254d6cc8e3329f5fb224944401f66655db"
+  resolved "https://github.com/GeekyAnts/react-native-keyboard-aware-scroll-view#f4805f254d6cc8e3329f5fb224944401f66655db"
   dependencies:
     create-react-class "^15.6.0"
     prop-types "^15.5.10"
@@ -4857,6 +4889,13 @@ react-native-gesture-handler@1.0.0-alpha.30:
 react-native-maps@0.17.1:
   version "0.17.1"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.17.1.tgz#ab2236341fd984dac8864202ae55331bc262f60c"
+
+react-native-modal@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-4.1.1.tgz#4c1055dc045106542a8e3bb3fd656a6d3bc319d9"
+  dependencies:
+    prop-types "15.5.10"
+    react-native-animatable "^1.2.3"
 
 react-native-safe-module@^1.1.0:
   version "1.2.0"
@@ -4981,7 +5020,7 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-redux@^5.0.2:
+react-redux@^5.0.2, react-redux@^5.0.6:
   version "5.0.6"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.6.tgz#23ed3a4f986359d68b5212eaaa681e60d6574946"
   dependencies:
@@ -4998,6 +5037,10 @@ react-test-renderer@16.0.0:
   dependencies:
     fbjs "^0.8.16"
     object-assign "^4.1.1"
+
+react-thunk@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-thunk/-/react-thunk-1.0.0.tgz#79813d47f31147e81aee841ed5e76a9e3eabc8b1"
 
 react-timer-mixin@^0.13.2, react-timer-mixin@^0.13.3:
   version "0.13.3"
@@ -5090,7 +5133,17 @@ redux-logger@^2.7.4:
   dependencies:
     deep-diff "0.3.4"
 
-redux@^3.6.0:
+redux-logger@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-3.0.6.tgz#f7555966f3098f3c88604c449cf0baf5778274bf"
+  dependencies:
+    deep-diff "^0.3.5"
+
+redux-thunk@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
+
+redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/redux/-/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:

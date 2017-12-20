@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Text, View, Button, Image } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import axios from 'axios'
@@ -50,6 +51,10 @@ class HomeScreen extends React.Component {
 
   }
 
+  componentDidMount(){
+    this.getMoodFromGiphy()
+  }
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -77,4 +82,17 @@ class HomeScreen extends React.Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return ({
+
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    getTrending: () => dispatch(gifAction)
+  })
+}
+
+// export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
 export default HomeScreen

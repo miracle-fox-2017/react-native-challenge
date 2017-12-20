@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import HomeScreen from './screen/HomeScreen'
 import TrendingScreen from './screen/TrendingScreen'
+import { Provider } from 'react-redux'
+import store from './store'
 
 import {
   StackNavigator,
@@ -18,7 +20,9 @@ export default class App extends React.Component {
   }
   render() {
     return (
-      <Apps />
+      <Provider store={store}>
+        <Apps />
+      </Provider>
     )
   }
 }

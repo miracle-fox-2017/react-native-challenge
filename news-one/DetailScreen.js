@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import HTMLView from 'react-native-htmlview'
 
 export default class DetailScreen extends Component {
   constructor(props) {
@@ -12,22 +13,33 @@ export default class DetailScreen extends Component {
 
   render() {
     const styles = StyleSheet.create({
-      image: {
-        width: 100,
-        height: 100
+      title: {
+        fontSize: 20,
+        padding: 10,
+        fontWeight: 'bold'
       },
+
+      content: {
+        padding: 10
+      }
     }); 
 
     const { navigate, state } = this.props.navigation
-    console.log("DETAIL: ", state.params.photo.previewHeight)
+    const article = state.params.article;
+    const content = article.content.rendered;
+
     return (
-      
-      <View>
-        <Text>Detail Photo</Text>
-        <Image style={styles.image} source={{ uri: state.params.photo.previewURL }} />
+      <ScrollView>
+        <Text style={styles.title}>{article.title.rendered}</Text>
+        <HTMLView
+          style={styles.content}
+          value={`<i>${content}</i>`}
+        />
+        
+        {/* <Image style={styles.image} source={{ uri: state.params.photo.previewURL }} />
         <Text>Photo By: {state.params.photo.user}</Text>
-        <Text>Tag: {state.params.photo.tags}</Text>
-      </View>
+        <Text>Tag: {state.params.photo.tags}</Text> */}
+      </ScrollView>
     )
   }
 }

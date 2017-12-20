@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, FlatList, ActivityIndicator } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
 import TitleItem from './components/TitleItem'
+import ArticleRow from './components/ArticleRow'
 
 export default class HomeScreen extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      photos: []
+      newsList: [],
+      isLoading: false
     }
   }
 
@@ -17,19 +19,24 @@ export default class HomeScreen extends Component {
     alert("Hello")
   }
 
-  componentWillMount() {
-    console.log("componentWillMount---------------")
-    const apiUrl = 'https://pixabay.com/api/?key=4479062-e35b5172203266797d6336036&q=sports-car&image_type=photo&pretty=true';
+  fetchNewsAPI() {
+    const url = 'http://wptavern.com/wp-json/wp/v2/posts?_embed'
+    this.setState({
+      isLoading: true
+    })
 
-    axios.get(apiUrl, { headers: { 'Content-Type': 'application/json' } })
+    axios.get(url)
       .then(({data}) => {
-        // console.log(" data.hits---------------", data)
-
         this.setState({
-          photos: data.hits
+          newsList: data,
+          isLoading: false
         })
+        
+      }).catch(err => console.log({ message: 'Something wrong fetching news', error: err.message }));
+  }
 
-      }).catch(err => console.log({ message: 'Something wrong fetching photos', error: err.message }));
+  componentWillMount() {
+    this.fetchNewsAPI()
   }
 
   render() {
@@ -39,23 +46,28 @@ export default class HomeScreen extends Component {
         fontSize: 20,
         fontWeight: 'bold'
       },
+
+      container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+      },
     }); 
 
     return (
-      <View>
-
-        
-          {/* <Text style={styles.title}>{this.state.photos.length > 0 ? this.state.photos[0].tags : 'Belum Load'}</Text> */}
-        {
-          this.state.photos.map((photo, index) => {
-            return (
-              <TouchableOpacity key={index} onPress={() => navigate('Details', { photo: photo })}>
-               <TitleItem photo={photo.tags}/>
+      <View style={styles.container}>
+        {this.state.isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+        <FlatList
+          data={this.state.newsList}
+          keyExtractor={(item, index) => item.id}
+          renderItem={({item}) => {
+            return(
+              <TouchableOpacity onPress={() => navigate('Details', { article: item })}>
+                <ArticleRow article={item}/>
               </TouchableOpacity>
             )
-          })
-        }
-
+          }}
+        />
       </View>
     )
   }

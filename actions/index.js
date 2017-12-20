@@ -10,7 +10,7 @@ export function games(payload) {
 
 export function getAllGames(){
   return dispatch => {
-    axios.get('https://www.giantbomb.com/api/games/?api_key=81b142b95e0dc166df9f0ddc886621c0ec8a3254&limit=20')
+    axios.get('https://www.giantbomb.com/api/games/?api_key=81b142b95e0dc166df9f0ddc886621c0ec8a3254&limit=50')
     .then(({data}) => {
       let jsonObj = fastXmlParser.parse(data)
       let gameList = jsonObj.response.results.game
@@ -36,6 +36,7 @@ export function getDetailGame(id) {
     .then(({data}) => {
       let jsonObj = fastXmlParser.parse(data)
       let detail = jsonObj.response.results
+      console.log('detail ', detail)
       dispatch(gameDetail(detail))
     })
     .catch(err => {
@@ -43,4 +44,10 @@ export function getDetailGame(id) {
     })
   }
 
+}
+
+export function clearState() {
+  return {
+    type: 'CLEAR_STATE_DETAIL'
+  }
 }

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, ActivityIndicator, StyleSheet, Image } from 'react-native';
 import { RkCard } from 'react-native-ui-kitten'
 import HTMLView from 'react-native-htmlview';
 import { connect } from 'react-redux'
 
-import { getDetailGame } from '../actions'
+import { getDetailGame, clearState } from '../actions'
 
 class Detail extends Component {
   static navigationOptions = {
@@ -13,6 +13,7 @@ class Detail extends Component {
   }
 
   componentWillMount() {
+    this.props.clearState()
     this.props.getDetailGame(this.props.navigation.state.params.id)
   }
 
@@ -20,7 +21,7 @@ class Detail extends Component {
     let contentDesc = this.props.gameDetail.description
     if(this.props.gameDetail) {
       content = <ScrollView>
-                  <RkCard style={{flex:1}}>
+                  <RkCard>
                     <View rkCardHeader>
                       <Text style={styles.header}>{this.props.gameDetail.name}</Text>
                     </View>
@@ -57,6 +58,12 @@ const styles = StyleSheet.create({
   header: {
     fontWeight: '900',
     fontSize: 20
+  },
+  image: {
+    flex: 1,
+    alignSelf: 'stretch',
+    width: undefined,
+    height: undefined
   }
 })
 
@@ -68,7 +75,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getDetailGame: (id) => dispatch(getDetailGame(id))
+    getDetailGame: (id) => dispatch(getDetailGame(id)),
+    clearState: () => dispatch(clearState())
   }
 }
 

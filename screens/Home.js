@@ -16,7 +16,7 @@ class Home extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.horizontal]}>
         {
           this.props.games.length <= 0 ? <ActivityIndicator size="large" color="#0000ff"/>
           :
@@ -26,7 +26,7 @@ class Home extends Component {
             keyExtractor={(item => item.id)}
             renderItem={({item}) =>
               <View style={styles.card}>
-                <Image source={{uri: item.image.medium_url}} style={styles.cardImage}/>
+                <Image source={{uri: item.image.small_url}} style={styles.cardImage} resizeMode="contain"/>
                 <View style={styles.description}>
                   <Text style={styles.titleText}>{item.name}</Text>
                   <Text>{item.deck}</Text>
@@ -46,18 +46,24 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  horizontal: {
+    justifyContent: 'space-around',
+  },
   card: {
     borderWidth: 0.1,
     borderRadius: 2,
     borderColor: '#000',
-    height: 300,
+    height: 480,
     flex: 2,
     marginVertical: 10,
     backgroundColor: '#fff',
     marginHorizontal: 10
   },
   cardImage: {
-    flex: 1
+    flex: 1,
+    alignSelf: 'stretch',
+    width: undefined,
+    height: undefined
   },
   description: {
     padding: 10,

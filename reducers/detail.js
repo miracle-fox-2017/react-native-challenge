@@ -7,6 +7,8 @@ export default function(state = initialState, action) {
   switch (action.type){
     case 'GET_DETAIL_GAME':
       return {...state, gameDetail: action.payload}
+    case 'CLEAR_STATE_DETAIL':
+      return {...state, gameDetail: ''}
     default:
       return state
   }

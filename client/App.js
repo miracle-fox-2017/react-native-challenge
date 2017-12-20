@@ -1,13 +1,16 @@
 import React from 'react';
-import Home from './screens/Home'
+import Navbar from './screens/Navbar'
+import { Provider } from 'react-redux'
+import store from './store'
 
-export default class App extends React.Component {
-  constructor () {
-    super ()
-  }
+class App extends React.Component {
   render() {
     return (
-      <Home/>
-    );
+    <Provider store={store}>
+      <Navbar/>
+    </Provider>
+    )
   }
 }
+
+export default App

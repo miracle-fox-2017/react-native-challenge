@@ -6,7 +6,11 @@ export default class HeroScreen extends React.Component {
     static navigationOptions= (({navigation}) => ({
     	title: navigation.state.params.hero.Name,
 	      headerStyle: {
-	        marginTop: 25
+	        backgroundColor: 'transparent',
+	        zIndex: 100,
+	        top: 0,
+	        left: 0,
+	        right: 0
 	      }    	
     }))
 

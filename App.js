@@ -15,7 +15,12 @@ const Navigator = StackNavigator({
     navigationOptions: {
       headerTitle: 'Home',
       headerStyle: {
-        marginTop: 25
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0,
+        // marginTop: 25
       }
     },
   },
@@ -24,7 +29,11 @@ const Navigator = StackNavigator({
     navigationOptions: {
       headerTitle: 'Heroes',
       headerStyle: {
-        marginTop: 25
+        backgroundColor: 'transparent',
+        zIndex: 100,
+        top: 0,
+        left: 0,
+        right: 0,        
       }      
     },
   },

@@ -39,7 +39,8 @@ class HomeScreen extends Component {
 
   reloadNewsAPI() {
     this.setState({
-      isRefreshing: true
+      isRefreshing: true,
+      newsList: []
     })
 
     this.props.loadNews(this.state.page)

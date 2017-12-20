@@ -5,7 +5,7 @@ import fastXmlParser from 'fast-xml-parser'
 import { RkCard } from 'react-native-ui-kitten'
 import HTMLView from 'react-native-htmlview';
 
-class About extends Component {
+class Detail extends Component {
   constructor() {
     super()
     this.state = {
@@ -69,4 +69,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default About
+export default Detail

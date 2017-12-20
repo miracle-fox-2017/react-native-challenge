@@ -1,44 +1,28 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, Image, ActivityIndicator, FlatList, TouchableOpacity } from 'react-native';
-import axios from 'axios';
-import fastXmlParser from 'fast-xml-parser'
+import { connect } from 'react-redux'
 
-import Cards from '../component/Cards'
+import { getAllGames } from '../actions/index'
 
 class Home extends Component {
-  constructor() {
-    super()
-    this.state = {
-      games: []
-    }
-  }
-
   static navigationOptions = {
     title: 'Home',
     headerStyle: { marginTop: 24 }
   }
 
   componentWillMount() {
-    axios.get('https://www.giantbomb.com/api/games/?api_key=81b142b95e0dc166df9f0ddc886621c0ec8a3254&limit=20')
-    .then(({data}) => {
-      let jsonObj = fastXmlParser.parse(data)
-      let gameList = jsonObj.response.results.game
-      this.setState({
-        games: gameList
-      })
-    })
+    this.props.getAllGames()
   }
-
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         {
-          this.state.games.length <= 0 ? <ActivityIndicator size="large" color="#0000ff"/>
+          this.props.games.length <= 0 ? <ActivityIndicator style={{marginTop: 150}} size="large" color="#0000ff"/>
           :
           <FlatList
             style={styles}
-            data={this.state.games}
+            data={this.props.games}
             keyExtractor={(item => item.id)}
             renderItem={({item}) =>
               <View style={styles.card}>
@@ -58,16 +42,11 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   card: {
     borderWidth: 0.1,
     borderRadius: 2,
     borderColor: '#000',
-    height: 250,
+    height: 300,
     flex: 2,
     marginVertical: 10,
     backgroundColor: '#fff',
@@ -90,4 +69,18 @@ const styles = StyleSheet.create({
   }
 })
 
-export default Home
+function mapStateToProps(state) {
+  console.log(state)
+  return {
+    games: state.HomeReducer.games
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  console.log('masuk props dispatch')
+  return {
+    getAllGames: () => dispatch(getAllGames())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

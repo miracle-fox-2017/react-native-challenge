@@ -1,49 +1,45 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { View, Text, Button, ListView, Image, ScrollView } from 'react-native'
+import { Card } from 'react-native-elements'
 import axios from 'axios'
+import { getDetailData } from '../actions'
 
-export default class DetailRestauran extends Component {
+class DetailRestauran extends Component {
   constructor(props){
-  	super(props);
-  	this.state = {
-      restauranDetail: ''
-    }
-  }
-  getDetailRestaurant (resID) {
-    axios.get(`http://developers.zomato.com/api/v2.1/restaurant?res_id=${resID}`,{
-      headers : {
-        'user-key' : '6f7e7987e70dc105330926821cabef62'
-      }
-    })
-    .then(({data}) => {
-      this.setState({
-        restauranDetail: data
-      })
-    })
-    .catch(err => console.error(err))
+  	super(props)
   }
   render(){
     return(
-      <View style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}>
-        <Text>{this.state.restauranDetail.name}</Text>
-        <Image
-          style={{width: 50, height: 50}}
-          source={{uri: this.state.restauranDetail.thumb}}
-        />
-      </View>
+      <Card
+        title={this.props.detailData.name}
+        image={{uri : this.props.detailData.thumb }}
+      >
+      <Text>average cost for two: Rp. {this.props.detailData.average_cost_for_two} </Text>
+      <Text>Cuisines: {this.props.detailData.cuisines}</Text>
+      </Card>
     );
   }
   componentWillMount() {
-    this.getDetailRestaurant(this.props.navigation.state.params.id)
-  }
-  componentWillReceiveProps(nextProps) {
-    // this.setState({
-    //   restauranDetail: nextProps
-    // })
+    this.props.getDetailData(this.props.navigation.state.params.id)
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    detailData: state.restaurantDetail
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    getDetailData: (resID) => {
+      dispatch(getDetailData(resID))
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DetailRestauran)

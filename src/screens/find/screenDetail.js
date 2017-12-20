@@ -33,7 +33,7 @@ export default class Detail extends Component {
     console.log('INI DI SPESIFICATION', this.state.specification)
     return (
       <Container>
-        {/* <Header/> */}
+        <Header/>
         <Content>
           <Text>Detail</Text>
         </Content>

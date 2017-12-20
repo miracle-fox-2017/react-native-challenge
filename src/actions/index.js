@@ -39,3 +39,41 @@ export const getSuggest = () => {
     })
   }
 }
+
+export const findCompare = input => {
+  return dispatch => {
+    console.log('MASUK', input)
+    if(input !== '') {
+      // https://price-api.datayuge.com/api/v1/compare/specs?api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB&id=${localprops.product_id}`)
+      Axios.get(`https://price-api.datayuge.com/api/v1/compare/search?product=${input}&api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB`)
+      .then(({data}) => {
+        console.log(data.data)
+        dispatch({
+          type: 'GET_COMPARE',
+          allcompare: data.data
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    } else {
+      alert('Please fill the blank')
+    }
+  }
+}
+
+export const getSpecs = specs => {
+  return dispatch => {
+    Axios.get(`https://price-api.datayuge.com/api/v1/compare/specs?api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB&id=${specs.product_id}`)
+    .then(({data}) => {
+      console.log('SPESIFIKASI', data)
+      dispatch({
+        type: 'GET_SPECIFICATION',
+        specification: data.data
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+  }
+}

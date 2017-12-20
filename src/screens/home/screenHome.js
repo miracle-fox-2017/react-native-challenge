@@ -20,20 +20,17 @@ export class screenHome extends Component {
     this.props.getSuggest()
     // https://price-api.datayuge.com/api/v1/compare/search/suggest?api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB&product=Oppo
     // https://price-api.datayuge.com/api/v1/compare/search?product=oppo&api_key=bExRZJVNF5hZhqXljV4xdnV30pLcjZIFKEB
-    
   }
   render() {
     return (
       <Container>
         <Content>
-          <Text>Home</Text>
-          {/* <List>
+          <List>
             <ListItem itemHeader first>
             <Text>Keyword searching today: </Text>
-              <H2>{this.state.suggest}</H2>
             </ListItem>
             <FlatList
-              data={this.state.listSuggest}
+              data={this.props.suggest}
               keyExtractor = { (item, i) => i}
               renderItem = { ({item}) =>(
                 <ListItem>
@@ -41,16 +38,15 @@ export class screenHome extends Component {
                 </ListItem>
               )}
               />
-          </List> */}
+          </List>
         </Content>
       </Container>
     );
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state, 'INI SATTE HOME')
   return {
-    // allPhotos: state.postTweet.allphotos
+    suggest: state.reducerFind.suggest
   }
 }
 const mapDispatchToProps = (dispatch) => {

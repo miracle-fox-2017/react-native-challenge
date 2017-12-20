@@ -1,7 +1,7 @@
 const initialState = {
   suggest: [],
   compare: [],
-  specification: ''
+  specification: {}
 }
 export const compareFind = (state = initialState, action) => {
   console.log(action, "INBI ACTION")
@@ -10,9 +10,11 @@ export const compareFind = (state = initialState, action) => {
       state.suggest = action.listSuggest
       return {...state}
     case 'GET_COMPARE':
-      return state
+      state.compare = action.allcompare
+      return {...state}
     case 'GET_SPECIFICATION':
-      return state
+      state.specification = action.specification
+      return {...state}
     default:
       return state
   }

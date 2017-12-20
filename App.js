@@ -8,8 +8,6 @@ import ScreenDetail from './src/screens/find/screenDetail'
 import {Provider} from 'react-redux'
 import store from './src/store'
 
-// import Footers from './src/screens/footerMenu'
-
 const Navigator = StackNavigator(
   {
     Home: {

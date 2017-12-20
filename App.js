@@ -14,12 +14,18 @@ const Navigator = StackNavigator({
     screen : HomeScreen,
     navigationOptions: {
       headerTitle: 'Home',
+      headerStyle: {
+        marginTop: 25
+      }
     },
   },
   Heroes: { 
     screen : HeroesScreen,
     navigationOptions: {
       headerTitle: 'Heroes',
+      headerStyle: {
+        marginTop: 25
+      }      
     },
   },
   Hero: { 

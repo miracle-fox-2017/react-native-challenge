@@ -4,7 +4,10 @@ import { StackNavigator } from 'react-navigation';
 
 export default class HeroScreen extends React.Component {	
     static navigationOptions= (({navigation}) => ({
-    	title: navigation.state.params.hero.Name
+    	title: navigation.state.params.hero.Name,
+	      headerStyle: {
+	        marginTop: 25
+	      }    	
     }))
 
 	render() {

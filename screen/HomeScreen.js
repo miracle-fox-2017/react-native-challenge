@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Text, View, Button, Image } from 'react-native'
 import { StackNavigator } from 'react-navigation'
 import axios from 'axios'
+import action from '../actions/gifAction'
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -12,7 +13,6 @@ class HomeScreen extends React.Component {
 
   constructor(props) {
     super()
-
     this.state = {
       headers: "An application for change your mood",
       mood: {
@@ -20,39 +20,10 @@ class HomeScreen extends React.Component {
         fixed_width_small_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif'
       }
     }
-
-    this.getMoodFromGiphy()
-    this.getMoodFromGiphy = this.getMoodFromGiphy.bind(this)
-  }
-
-  getMoodFromGiphy(){
-    this.setState({
-      mood: {
-        image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif',
-        fixed_width_small_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif'
-     }
-    }, () => {
-      axios.get('https://api.giphy.com/v1/gifs/random?api_key=sKMWhStnyc6mWswAtjtKfKxS4x5sisKL&tag=&rating=G')
-      .then(({ data }) => {
-        this.setState({
-          mood: data.data
-        })
-      })
-      .catch(err => {
-        console.log(err)
-        this.setState({
-          mood: {
-            image_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif',
-            fixed_width_small_url: 'https://media.giphy.com/media/KDBkZDXoHQl9K/giphy.gif'
-         }
-        })
-      })
-    })
-
   }
 
   componentDidMount(){
-    this.getMoodFromGiphy()
+    this.props.getRandom()
   }
 
   render() {
@@ -67,13 +38,12 @@ class HomeScreen extends React.Component {
         <View>
           <Image
               style={{width: 300, height: 300}}
-              source={{uri: this.state.mood.fixed_width_small_url}}
+              source={{uri: this.props.gifRandom.fixed_width_small_url}}
           />
         </View>
-        <Text>{this.state.mood.fixed_width_small_url}</Text>
         <View style={{ flexDirection: 'row' }}>
           <Button
-            title='re-roll' onPress={this.getMoodFromGiphy} />
+            title='re-roll' onPress={ () => this.props.getRandom()} />
           <Button
             title='Trending gif' onPress={ () => navigate('Trending')} />
         </View>
@@ -84,15 +54,14 @@ class HomeScreen extends React.Component {
 
 const mapStateToProps = (state) => {
   return ({
-
+    gifRandom: state.trendingReducer.random
   })
 }
 
 const mapDispatchToProps = (dispatch) => {
   return ({
-    getTrending: () => dispatch(gifAction)
+    getRandom: () => dispatch(action.random())
   })
 }
 
-// export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)
-export default HomeScreen
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen)

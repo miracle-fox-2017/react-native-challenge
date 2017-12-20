@@ -13,12 +13,25 @@ const getTrending = () => {
       return state
     })
   }
+}
 
-  // return ({
-  //   type: 'GET_TRENDING'
-  // })
+const random = () => {
+  return(dispatch) => {
+    axios.get('https://api.giphy.com/v1/gifs/random?api_key=sKMWhStnyc6mWswAtjtKfKxS4x5sisKL&tag=&rating=G')
+    .then(({ data }) => {
+      console.log('random')
+      dispatch({
+        type: 'GET_RANDOM',
+        payload: data.data
+      })
+    })
+    .catch(err => {
+      return state
+    })
+  }
 }
 
 export default actions = {
-  getTrending
+  getTrending,
+  random
 }

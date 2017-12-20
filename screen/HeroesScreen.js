@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, View, Text, Button } from 'react-native';
+import { ScrollView, View, Text, Button, FlatList } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import axios from 'axios'
 import HeroList from '../components/HeroList'
@@ -11,20 +11,34 @@ export default class HeroesScreen extends React.Component {
 	constructor(props){
 		super()
 		this.state= {
-			heroes: []
+			heroes: [],
+			refreshing: false
 		}
 	}  	
 	render() {
 		const { navigate, state } = this.props.navigation
 		return (
-			<ScrollView>
-			{this.state.heroes.length === 0 ? <Loading /> :this.state.heroes.map((hero,i) => {
-				return(
-					<HeroList hero={hero} key={i} navigate={navigate}/>
-					)	
-			})}
-			</ScrollView>			
-			)
+			<View>
+			{this.state.heroes.length === 0 && <Loading /> }
+			<FlatList
+				data={this.state.heroes}
+				onRefresh={() => this.updatedData()}
+				refreshing={this.state.refreshing}
+				keyExtractor= {(item,index) => item.Name}
+				renderItem= {({item}) => {
+					return(
+						<HeroList hero={item} key={item.Name} navigate={navigate}/>
+					)						
+				}}
+			/>
+			</View>			
+		)
+	}
+
+	updatedData() {
+		this.setState({refreshing: true})
+		alert('Reloaaaaaaaaaad')
+		this.setState({refreshing: false})
 	}
 	componentDidMount() {
 		this.fetchApi()   

@@ -8,7 +8,7 @@ export default class Loading extends React.Component {
 	render(){
 		return (
 			<View> 
-				<Text style={styles.loading} > Loading 
+				<Text style={styles.loading} > Loading...
 				</Text>
 			</View>
 		)

@@ -3,7 +3,8 @@ import {
   Text,
   View,
   Image,
-  StyleSheet
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 
 class Detail extends Component {
@@ -24,7 +25,7 @@ class Detail extends Component {
       <View style={{backgroundColor : '#F1F1F1', height : '100%'}}>
         <View style={styles.wrapper}>
           <Image
-            source={{uri : 'https://storage.googleapis.com/library.tomybudiman.cf/first-react-native/spacex-cover.jpg'}}
+            source={require('../media/spacex-cover.jpg')}
             style={styles.imageHeader}/>
           <View style={{padding : 10}}>
             {/* Name */}
@@ -52,6 +53,8 @@ class Detail extends Component {
   }
 }
 
+const {width,height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   wrapper : {
     width : '85%',
@@ -63,8 +66,8 @@ const styles = StyleSheet.create({
     backgroundColor : '#FFF'
   },
   imageHeader : {
-    width : '100%',
-    height : 200
+    resizeMode : 'cover',
+    height : height * 0.4
   },
   labelInfo : {
     fontSize : 18,

@@ -1,7 +1,7 @@
 import React  from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Spinner, Image, Left, View, Input, Item, List, ListItem, Body, Right, Thumbnail, Card, CardItem } from 'native-base';
+import { Container, Header, Content, Footer, FooterTab, Button, Icon, Text, Spinner, Left, View, Input, Item, List, ListItem, Body, Right, Thumbnail, Card, CardItem } from 'native-base';
 import Axios from 'axios'
-import { FlatList } from "react-native";
+import { FlatList, Image, StyleSheet } from "react-native";
 import Modal from 'react-native-modal'
 import {connect} from 'react-redux'
 import {findCompare, getSpecs} from '../../actions'
@@ -9,7 +9,21 @@ import {findCompare, getSpecs} from '../../actions'
 import {
   TouchableOpacity
 } from 'react-native'
-
+const styles = StyleSheet.create({ 
+  headline: { 
+    fontSize: 20,
+    alignSelf: 'center',
+    color: 'black' 
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    padding: 2,
+    justifyContent: 'center',
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+    height: 500,
+    borderRadius: 30,
+  },
+}); 
 export class Find extends React.Component {
   constructor(props) {
     super(props);
@@ -34,28 +48,44 @@ export class Find extends React.Component {
   _hideModal = () => this.setState({ isModalVisible: false })
 
   _renderModalContent = () => {
-    if(!this.props.specification) {
+    if(this.props.specification) {
       return (
-        <Spinner color='red' />
-      )
-    } else {
-      return (
-        <View>
-          <Button 
-            transparent 
-            textStyle={{color: '#fff'}}
-            onPress={() => this._hideModal()}
-            >
-            <Icon name="close-circle" />
+        <View style={styles.modalContent}>
+          <Right>
+            <Button 
+              transparent 
+              textStyle={{color: '#fff'}}
+              onPress={() => this._hideModal()}
+              >
+              <Icon name="close-circle" />
             </Button>
-            <Thumbnail square large source={{uri: this.state.image}} />
+          </Right>
+          <Image
+            style={{
+              alignSelf: 'center',
+              width: 200,
+              height:200
+            }}
+            source={{uri: this.state.image}}
+            resizeMode="cover"/>
           <FlatList
             data={this.props.specification.main_specs}
             renderItem={({ item }) => (
-              <Text>{item}</Text>
+              <Text style={styles.headline}>{item}</Text>
             )}
           />
         </View>
+      )
+      this.setState({
+        loading: false
+      })
+      
+    } else {
+      this.setState({
+        loading: true
+      })
+      return (
+        <Spinner color='red' />
       )
     }
   };

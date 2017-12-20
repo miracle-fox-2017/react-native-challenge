@@ -8,13 +8,13 @@ export const compareFind = (state = initialState, action) => {
   switch (action.type) {
     case 'GET_SUGGEST':
       state.suggest = action.listSuggest
-      return {...state}
+      return { ...state }
     case 'GET_COMPARE':
       state.compare = action.allcompare
-      return {...state}
+      return { ...state }
     case 'GET_SPECIFICATION':
       state.specification = action.specification
-      return {...state}
+      return { ...state }
     default:
       return state
   }

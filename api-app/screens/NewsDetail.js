@@ -17,29 +17,49 @@ class NewsDetail extends React.Component {
     const { state } = this.props.navigation
     console.log(state.params)
     return (
-      <View>
+      <View style={style.container}>
         <Text style={style.header}>
           {state.params.data.title}
         </Text>
-        <Text>
+        <Text style={style.desc}>
           {state.params.data.description}
         </Text>
         <Image source={{ uri: state.params.data.urlToImage }} style={style.image} />
+        <Text style={style.desc}>
+          Reported By:  {state.params.data.author}
+        </Text>
       </View>
     )
   }
 }
 
 const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    padding: 10,
+    backgroundColor: '#ff4d4d'
+  },
   header: {
+    borderBottomWidth: 4,
     padding: 10,
     fontSize: 20,
     textAlign: 'center',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: 'white'
+  },
+  desc: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: 'white'
   },
   image: {
-    width: 100,
-    height: 75,
+    marginTop: 10,
+    width: 200,
+    height: 150,
   }
 })
 export default NewsDetail

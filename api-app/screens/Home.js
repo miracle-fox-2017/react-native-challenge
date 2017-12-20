@@ -9,7 +9,7 @@ class Home extends React.Component {
   render() {
     const { navigate } = this.props.navigation
     return (
-      <Button title="News List"
+      <Button  title="News List"
         onPress={() => navigate('News')} />
     )
   }

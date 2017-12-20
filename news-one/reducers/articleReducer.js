@@ -9,7 +9,7 @@ export const articleReducer = (state = initialState, action) => {
     case 'FETCH_ARTICLES':
       const loadNewsList =  state.newsList.concat(action.payload.newsList)
       return { ...state, newsList: loadNewsList }
-      return state
+      
     default:
       return state
   }

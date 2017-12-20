@@ -55,8 +55,16 @@ class HomeScreen extends Component {
 
   loadMoreData() {
     if (this.state.newsList.length > 0) {
-      alert("Load More...")
-      console.log("loadMoreData--------------------")
+      
+
+      this.setState({
+        isLoading: true
+      })
+
+      let page = this.state.page += 1
+      console.log("loadMoreData--------------------", page)
+
+      this.props.loadNews(page)
     }
   }
 
@@ -90,7 +98,7 @@ class HomeScreen extends Component {
 
     return (
       <View style={styles.container}>
-        {this.state.isLoading && <ActivityIndicator size="large" color="#0000ff" />}
+        
         <FlatList
           onEndReached={() => this.loadMoreData()}
           onRefresh={() => this.refreshData()}
@@ -104,6 +112,9 @@ class HomeScreen extends Component {
               </TouchableOpacity>
             )
           }}
+          ListFooterComponent={() => { return (
+            this.state.isLoading && <ActivityIndicator size="large" color="#0000ff" />
+          ) }}
         />
       </View>
     )

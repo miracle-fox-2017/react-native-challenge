@@ -34,6 +34,7 @@ export default class ArticleRow extends Component {
       },
 
       title: {
+        marginTop: 10,
         fontSize: 15,
         fontWeight: 'bold'
       }

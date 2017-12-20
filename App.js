@@ -1,32 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import axios from 'axios'
+import { StyleSheet, Text, View, ScrollView, FlatList } from 'react-native';
+import { Provider } from 'react-redux';
+import { StackNavigator } from 'react-navigation';
 
-const http = axios.create({
-  baseURL: 'https://swapi.co/api'
-})
+import store from './store';
+
+import HomePage from './screens/MainPage';
+import DetailPage from './screens/DetailPage';
+
 export default class App extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      people: []
-    }
-  }
+  constructor () {
+    super();
+  };
 
-  componentWillMount ( {
-    http.get('/people')
-      .then(({data})=> {
-        console.log('data yang masuk ', data.results);
-        this.setState({
-          people: data.results
-        })
-      })
-  })
   render() {
+    const Navigatitor = StackNavigator({
+      Home: { screen: HomePage },
+      Detail: { screen: DetailPage }
+    })
     return (
-      <View style={styles.container}>
-        <Text>{JSON.stringify(this.state.people)}</Text>
-      </View>
+      <Provider store={store}>
+       <Navigatitor />
+      </Provider>
     );
   }
 }
@@ -38,4 +33,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+    item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
+  }
 });

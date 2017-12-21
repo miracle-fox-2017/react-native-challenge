@@ -20,6 +20,9 @@ export default class App extends React.Component {
     http.get('/people')
     .then(({data}) => {
       console.log('data yang didapat', data)
+      this.setState({
+        people: data.results
+      })
     })
     .catch(err => console.error(err))
   }
@@ -44,5 +47,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+  }
 });

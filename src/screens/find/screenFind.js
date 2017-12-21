@@ -11,9 +11,9 @@ import {
 } from 'react-native'
 const styles = StyleSheet.create({ 
   headline: { 
-    fontSize: 20,
+    fontSize: 15,
     alignSelf: 'center',
-    color: 'black' 
+    color: 'green' 
   },
   modalContent: {
     backgroundColor: 'white',
@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(0, 0, 0, 0.1)',
     height: 500,
     borderRadius: 30,
+    padding: 0,
   },
 }); 
 export class Find extends React.Component {
@@ -51,25 +52,25 @@ export class Find extends React.Component {
     if(this.props.specification) {
       return (
         <View style={styles.modalContent}>
-          <Right>
-            <Button 
-              transparent 
-              textStyle={{color: '#fff'}}
-              onPress={() => this._hideModal()}
-              >
-              <Icon name="close-circle" />
-            </Button>
-          </Right>
+          <Button 
+            transparent 
+            textStyle={{color: '#fff'}}
+            onPress={() => this._hideModal()}
+            >
+            <Icon name="close-circle" />
+          </Button>
           <Image
             style={{
               alignSelf: 'center',
               width: 200,
-              height:200
+              height:250,
+              borderRadius:5,
             }}
             source={{uri: this.state.image}}
             resizeMode="cover"/>
           <FlatList
             data={this.props.specification.main_specs}
+            keyExtractor={(item, i) => i}
             renderItem={({ item }) => (
               <Text style={styles.headline}>{item}</Text>
             )}
@@ -112,7 +113,7 @@ export class Find extends React.Component {
                   data={this.props.compare}
                   keyExtractor = { item => item.product_id}
                   renderItem = { ({item}) => (
-                    <ListItem>
+                    <View>
                       <Thumbnail 
                         square 
                         size={80} 
@@ -128,21 +129,36 @@ export class Find extends React.Component {
                           <Text>Specs</Text>
                         </TouchableOpacity>
                       </Right>
-                    </ListItem>
+                    </View>
                     )
                   } />
               </List>
     }
     return (
-      <Container>
+      <Container style = {{marginTop:23}}>
         <Content>
           <Item regular>
             <Input 
-              name='brand' value={this.state.brand} 
+              style={{
+                alignSelf: 'center',
+                width: 250,
+                height:40,
+                borderRadius:5,
+                marginBottom: 10,
+                borderColor: 'green',
+                borderWidth: 1
+              }}
+              name='brand' 
+              value={this.state.brand} 
               onChangeText={(brand) => this.setState({brand})} 
               placeholder='Insert brand mobile' />
           </Item>
           <Button 
+            style={{
+              padding: 10,
+              height: 40,
+              width: 100
+            }}
             block
             iconRight
             success
@@ -153,6 +169,11 @@ export class Find extends React.Component {
           </Button>
 
           <Button 
+            style={{
+              padding: 10,
+              height: 40,
+              width: 100
+            }}
             block
             iconRight
             light
@@ -161,8 +182,9 @@ export class Find extends React.Component {
             <Text>Clear</Text>
             <Icon name='backspace' />
           </Button>
-          {status}
-          <Modal
+          {status}  
+        </Content>
+        <Modal
             backdropOpacity={1}
             backdropColor={'#CED0CE'}
             animationIn={'zoomInDown'}
@@ -172,7 +194,6 @@ export class Find extends React.Component {
             isVisible={this.state.isModalVisible}>
             {this._renderModalContent()}
         </Modal>
-        </Content>
       </Container>
     );
   }

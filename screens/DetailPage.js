@@ -14,10 +14,10 @@ class HeroDetail extends React.Component {
     const {state} = this.props.navigation;
     return (
       <View style={styles.container}>
-        <Text>Name: {state.params.person.name}</Text>
-        <Text>Gender: {state.params.person.gender}</Text>
-        <Text>Eye Color: {state.params.person.eye_color}</Text>
-        <Text>Hair Color: {state.params.person.hair_color}</Text>
+        <Text style={styles.item}>Name: {state.params.person.name}</Text>
+        <Text style={styles.item}>Gender: {state.params.person.gender}</Text>
+        <Text style={styles.item}>Eye Color: {state.params.person.eye_color}</Text>
+        <Text style={styles.item}>Hair Color: {state.params.person.hair_color}</Text>
       </View>
     )
   }
@@ -34,7 +34,10 @@ const styles = StyleSheet.create({
   },
   item: {
     padding: 10,
-    fontSize: 18,
+    fontSize: 20,
     height: 44,
+    widht: 10,
+    height: 10,
+    backgroundColor: 'powderblue'
   }
 });
